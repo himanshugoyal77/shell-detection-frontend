@@ -13,14 +13,15 @@
   <body>
     <h1 class="text-success text-center m-4">Shell Company Detection</h1>
     <div class="container">
-      <form action="/details" method="POST">
+      <form action="upload" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
         <div class="form-group">
           <label for="fname" class="mb-2">Company Name:</label>
           <input
-            type="text"
+            type="file"
             class="form-control mb-3"
             id="fname"
-            name="fname"
+            name="image"
           />
         </div>
         <div class="form-group">
@@ -41,7 +42,8 @@
             name="fname"
           />
         </div>
-        <div class="form-group">
+       
+        {% comment %} <div class="form-group">
           <label for="fname" class="mb-2">Services Provided:</label>
           <input
             type="text"
@@ -69,8 +71,8 @@
             placeholder=""
             name="fname"
           />
-        </div>
-        <div class="form-group">
+        </div> {% endcomment %}
+        {% comment %} <div class="form-group">
           <label for="fname" class="mb-2">Country of Beneficary:</label>
           <input
             type="text"
@@ -79,9 +81,9 @@
             placeholder=""
             name="fname"
           />
-        </div>
+        </div> {% endcomment %}
 
-            <button type="submit" class="btn bg-success mx-auto text-white" type="submit">
+            <button type="submit" class="btn mb-10 p-12 bg-success mx-auto text-white" type="submit">
               Check Status
             </button>
        

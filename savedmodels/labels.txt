@@ -1,0 +1,4 @@
+0 Office buildings
+1 Sub houses
+2 Apartment houses
+3 Empty land
