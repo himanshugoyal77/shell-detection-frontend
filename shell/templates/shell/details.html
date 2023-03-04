@@ -8,12 +8,17 @@
       integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
       crossorigin="anonymous"
     />
-    <title>Shell detection  </title>
-</head>
-<body>
-  <h1>Hello, {{ person.building }} {{ person.val }}</h1>
-    <h1 class="text-warning text-center m-4">Risk Factor is 20% {{p}}</h1>
-    <div class="container">
-    </div>
-</body>
+    <title>Shell detection</title>
+  </head>
+  <body>
+    <h1 class="text-warning text-center m-4">
+      predicted office type :  {{person.cname}}
+    </h1>
+    <h1 class="text-warning text-center m-4">
+      confidence score is :  {{person.cscore}}
+    </h1>
+    <h1 class="text-warning text-center m-4">
+      Risk :  {{person.isBuilding}}
+    <div class="container"></div>
+  </body>
 </html>

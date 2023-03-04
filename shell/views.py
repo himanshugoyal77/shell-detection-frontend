@@ -7,15 +7,15 @@ import numpy as np
 import pickle
 from django.core.files.storage import FileSystemStorage
 from shell.models import *
+import os
 
 def home(request):
-    
-
-
     return render(request, 'shell/home.html')
 
 def details(request):
-    
+    #upload(request)
+    c_name = "None"
+    c_score = 0
 
     def predict(image_path):
         # Disable scientific notation for clarity
@@ -56,22 +56,30 @@ def details(request):
 
         #Print prediction and confidence score
         print("Class:", class_name[2:], end="")
+        c_name = class_name[2:]
         print("Confidence Score:", confidence_score)
-        return index;
+        c_score = confidence_score
+        return [confidence_score, class_name[2:], index];
     
     x = 0
     def result(image_path):
-         x = predict(image_path)
+         xx = predict(image_path)
+         x = xx[2]
          if x == 0:
             return True;
          else:
              return False;
 
-    p = result('./media/images/download.jpeg');
+    p = result('./media/images/build.jpg');
     print(p)
+
+    print('lemon')
+    op = predict('./media/images/build.jpg')
+    l = op[0] * 100
+    c_name = op[1]
      
     
-    person= {'building': p, 'val': x}
+    person= {'isBuilding': p, 'val': x, 'cname': c_name, 'cscore': l}
     item_list = {"Chocolate": 4, "Pen": 10, "Pencil": 3}
     order_number= "000132342"
     context= {
@@ -84,11 +92,22 @@ def details(request):
 
     return render(request, 'shell/details.html', context)
 
+def rename(oldname):
+    print(f"./media/images/{oldname}")
+    os.rename(f"./media/images/{oldname}", './media/images/build.jpg')
 
+def _delete_file(path):
+   """ Deletes file from filesystem. """
+   if os.path.isfile(path):
+       os.remove(path)
 
 def upload(request):
     print("request handleling .......")
+    _delete_file('./media/images/build.jpg')
     pic = request.FILES['image']
+    #print(pic)
     shellImage = Shell(pic = pic)
     shellImage.save()
-    return render(request, 'shell/home.html')
+    rename(pic)
+    
+    return render(request, 'shell/details.html')
