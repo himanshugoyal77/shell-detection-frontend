@@ -8,6 +8,9 @@ import pickle
 from django.core.files.storage import FileSystemStorage
 from shell.models import *
 import os
+import pickle
+
+import requests
 
 def home(request):
     return render(request, 'shell/home.html')
@@ -16,6 +19,12 @@ def details(request):
     #upload(request)
     c_name = "None"
     c_score = 0
+    upload(request)
+
+    login_data = request.POST.dict()
+    jurisdiction = login_data.get("jurisdiction")
+    print("c name: ", jurisdiction)
+    api_data = apiData(jurisdiction)
 
     def predict(image_path):
         # Disable scientific notation for clarity
@@ -66,9 +75,9 @@ def details(request):
          xx = predict(image_path)
          x = xx[2]
          if x == 0:
-            return True;
+            return False;
          else:
-             return False;
+             return True;
 
     p = result('./media/images/build.jpg');
     print(p)
@@ -82,9 +91,10 @@ def details(request):
     person= {'isBuilding': p, 'val': x, 'cname': c_name, 'cscore': l}
     item_list = {"Chocolate": 4, "Pen": 10, "Pencil": 3}
     order_number= "000132342"
+    print(api_data["myData"][0])
     context= {
         'person': person,
-        'item_list': item_list,
+        'data': api_data["myData"][0],
         'order_number': order_number,
         'current_date': 44,
         }
@@ -110,4 +120,18 @@ def upload(request):
     shellImage.save()
     rename(pic)
     
+    #return render(request, 'shell/details.html')
+
+def predicting(request): 
+    pickled_model = pickle.load(open('savedmodels/pred_model.pkl', 'rb'))
+    j =  pickled_model.predict([[1, 4, 181, 181, 0, 16761, 0, 1]])
+    print("***************")
+    print(j[0])
     return render(request, 'shell/details.html')
+
+#[13, 1, 365091.13,20484.00, 0, 9037, 0, 0]
+
+def apiData(query):
+    response = requests.get(f'https://shellapi-production.up.railway.app/api/products?country={query}').json()
+    
+    return response

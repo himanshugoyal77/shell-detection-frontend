@@ -11,7 +11,58 @@
     <title>Shell detection</title>
   </head>
   <body>
-    <h1 class="text-warning text-center m-4">
+    <body class="bg-success">
+      <h1 class="text-dark text-center my-4 pt-3">Predicted values</h1>
+      <div class="container bg-dark w-50  h-75 rounded-4 mt-5 p-5">
+        <table class="table table-dark table-hover">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Criteria</th>
+              <th scope="col">prediction</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td>predicted office type</td>
+              <td>{{person.cname}}</td>
+            </tr>
+            <tr>
+              <th scope="row">2</th>
+              <td>confidence score</td>
+              <td>{{person.cscore}}</td>
+            </tr>
+            <tr>
+              <th scope="row">3</th>
+              <td>Risk</td>
+              <td>{{person.isBuilding}}</td>
+            </tr>
+            <tr>
+              <th scope="row">4</th>
+              <td>invp2022</td>
+              <td>{{data.invp2022}}</td>
+            </tr>
+            <tr>
+              <th scope="row">5</th>
+              <td>Country Rank</td>
+              <td>{{data.country}}</td>
+            </tr>
+            <tr>
+              <th scope="row">6</th>
+              <td>mfsi2020</td>
+              <td>{{data.mfsi2020}}</td>
+            </tr>
+            <tr>
+              <th scope="row">7</th>
+              <td>sink2017</td>
+              <td>{{data.sink2017}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    
+    {% comment %} <h1 class="text-warning text-center m-4">
       predicted office type :  {{person.cname}}
     </h1>
     <h1 class="text-warning text-center m-4">
@@ -19,6 +70,8 @@
     </h1>
     <h1 class="text-warning text-center m-4">
       Risk :  {{person.isBuilding}}
-    <div class="container"></div>
+    <div class="container">
+      {{data.invp2022}}
+    </div> {% endcomment %}
   </body>
 </html>
